@@ -52,36 +52,39 @@ public class ThirdRest {
     @Consumes(MediaType.APPLICATION_XML)
     public String putXml(String content) {
         String result = "";
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String , Integer> map = new HashMap<String, Integer>();
         int start = 65;
         while(start<=90){
-            map.put(String.valueOf(start),0);
+            map.put(String.valueOf((char)start),0);
             start++;
         }
         start = 97;
         while(start <= 122){
-            map.put(String.valueOf(start),0);
+            map.put(String.valueOf((char)start),0);
             start++;
         }
         for(int i = 0; i < content.length(); i++){
             map.put(String.valueOf(content.charAt(i)),map.get(String.valueOf(content.charAt(i)))+1);
         }
-        for(int i = 65; i <= 90; i++){
-            int counter = 0;
+        int counter = 0;
+        for(int i = 65; i <= 90;){
+            
             if(counter % 2 == 0){
-                if(map.get(String.valueOf(i)) != 0){
-                    for(int j = 0; j < map.get(String.valueOf(i)); j++){
-                        result += String.valueOf(i);
+                if(map.get(String.valueOf((char)i)) > 0){
+                    for(int j = 0; j < map.get(String.valueOf((char)i)); j++){
+                        result += String.valueOf((char)i);   
                     }
                 }
             }
             else{
-                if(map.get(String.valueOf(i+32)) != 0){
-                    for(int j = 0; j < map.get(String.valueOf(i)); j++){
-                        result += String.valueOf(i+32);
+                if(map.get(String.valueOf((char)(i+32))) > 0){
+                    for(int j = 0; j < map.get(String.valueOf((char)(i+32))); j++){
+                        result += String.valueOf((char)(i+32));
                     }
                 }
+                i++;
             }
+            counter = counter + 1;
         }
         return result;
     }
